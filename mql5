@@ -1,0 +1,105 @@
+
+//+------------------------------------------------------------------+
+//|                                                     Gold Multiply Funds EA by Shivam |
+//|                                                         forexroboteasy.com |
+//|                                                       Forex Robot Easy Team |
+//+------------------------------------------------------------------+
+
+// Global variables
+double initialInvestment = 210; // Initial investment amount
+double profitTarget = 100000; // Target profit amount
+double compoundingBalanceThreshold = 70; // Balance threshold for compounding
+double lotSize = 0.01; // Initial lot size
+
+//+------------------------------------------------------------------+
+//| Custom function to calculate lot size based on balance |
+//+------------------------------------------------------------------+
+double CalculateLotSize(double balance)
+{
+    return MathFloor(balance / compoundingBalanceThreshold) * lotSize;
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to check if target profit is reached |
+//+------------------------------------------------------------------+
+bool IsTargetProfitReached(double balance)
+{
+    return balance - initialInvestment >= profitTarget;
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to execute buy order |
+//+------------------------------------------------------------------+
+void Buy(double lotSize)
+{
+    // Add code to execute buy order
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to execute sell order |
+//+------------------------------------------------------------------+
+void Sell(double lotSize)
+{
+    // Add code to execute sell order
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to analyze market and make investment decisions |
+//+------------------------------------------------------------------+
+void AnalyzeMarket()
+{
+    // Add code to analyze market and make investment decisions
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to implement the trading logic |
+//+------------------------------------------------------------------+
+void Trade()
+{
+    double currentBalance = AccountBalance();
+    
+    if (currentBalance >= initialInvestment)
+    {
+        double currentLotSize = CalculateLotSize(currentBalance);
+        
+        if (currentLotSize > 0)
+        {
+            if (!IsTargetProfitReached(currentBalance))
+            {
+                AnalyzeMarket();
+                
+                // Make investment decisions based on market analysis
+                
+                if (/* Market analysis condition for buy order */)
+                {
+                    Buy(currentLotSize);
+                }
+                
+                if (/* Market analysis condition for sell order */)
+                {
+                    Sell(currentLotSize);
+                }
+            }
+        }
+    }
+}
+
+//+------------------------------------------------------------------+
+//| Custom function to control the trading process |
+//+------------------------------------------------------------------+
+void StartTrading()
+{
+    while (!IsTargetProfitReached(AccountBalance()))
+    {
+        Trade();
+        Sleep(1000); // Pause for 1 second before the next trade
+    }
+}
+
+//+------------------------------------------------------------------+
+//| Expert Advisor start function |
+//+------------------------------------------------------------------+
+void OnStart()
+{
+    StartTrading();
+}
